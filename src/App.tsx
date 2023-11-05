@@ -1,13 +1,28 @@
-import { Button } from "@/components/ui/button";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  RouteObject,
+} from "react-router-dom";
 
-function App() {
+import { ThemeProvider } from "@/components/ThemeProvider";
+import Home from "@/routes/Home";
+import Analysis from "@/routes/Analysis";
+
+const routes: RouteObject[] = [
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/analysis",
+    element: <Analysis />
+  }
+];
+
+export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="ui-theme">
-      <h1 className="text-xl text-red-500 font-bold">Vite + React</h1>
-      <Button>Click me</Button>
+      <RouterProvider router={createBrowserRouter(routes)} />
     </ThemeProvider>
   );
-}
-
-export default App;
+};
