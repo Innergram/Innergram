@@ -16,6 +16,13 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+      
+        'vina-sans': ['Vina Sans', 'sans-serif'],
+        'pacifico':[ 'Pacifico', 'cursive'],
+        'marker': ['Permanent Marker', 'cursive'],
+        'seymour-one':[ 'Seymour One', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -72,5 +79,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require('@tailwindcss/typography'),require("tailwindcss-animate")],
 }
