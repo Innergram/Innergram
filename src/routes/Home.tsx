@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { UploadIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -41,8 +42,10 @@ export default function Home() {
           <span className="bg-background px-5">OR</span>
         </div>    
 
-        <Button className="mt-8">
-          Try a Demo
+        <Button asChild className="mt-8">
+          <a href="/demo">
+            Try a Demo
+          </a>
         </Button>
       </div>
     </div>
