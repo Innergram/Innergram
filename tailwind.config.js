@@ -17,7 +17,6 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-      
         'vina-sans': ['Vina Sans', 'sans-serif'],
         'pacifico':[ 'Pacifico', 'cursive'],
         'marker': ['Permanent Marker', 'cursive'],
@@ -79,5 +78,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography'),require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate")],
 }

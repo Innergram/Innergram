@@ -1,11 +1,9 @@
-import "../index.css";
-import "@fontsource/playfair-display";
-import uploadicon from "../assets/images/upload_logo2.png";
+import { useState } from "react";
 
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react"
+import uploadicon from "../assets/images/upload_logo2.png";
 
 export default function Home() {
   const [file, setfile] = useState();

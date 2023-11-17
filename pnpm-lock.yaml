@@ -5,21 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@fontsource/lilita-one':
-    specifier: ^5.0.17
-    version: 5.0.17
-  '@fontsource/playfair-display':
-    specifier: ^5.0.17
-    version: 5.0.17
-  '@fontsource/seymour-one':
-    specifier: ^5.0.17
-    version: 5.0.17
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.2.31)(react@18.2.0)
-  '@tailwindcss/typography':
-    specifier: ^0.5.10
-    version: 0.5.10(tailwindcss@3.3.5)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -566,18 +554,6 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fontsource/lilita-one@5.0.17:
-    resolution: {integrity: sha512-0+xagXz4bFXPisX8NhDFZicqN5cnnmbe9sHwJmVPkWhQLyGV8d7rQAZocoXKOhdscnawl3R615ET8X4/rT8VGQ==}
-    dev: false
-
-  /@fontsource/playfair-display@5.0.17:
-    resolution: {integrity: sha512-8TregVIym6GN7frR7JULEdXHIwWCgC3YrHiFQXScCboDcRvMcTpHiKV/78UN0fIPhnza5xRpO9RvLhrP3lS05Q==}
-    dev: false
-
-  /@fontsource/seymour-one@5.0.17:
-    resolution: {integrity: sha512-/iGaRAfmCojYI3W+2OBVUq/l5p0wRRqilUVgSJbZGscUdVLBMUAIbDHv4puZkeJf6FZcDCYNA1nilPrhZbvAJA==}
-    dev: false
-
   /@humanwhocodes/config-array@0.11.13:
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
     engines: {node: '>=10.10.0'}
@@ -673,18 +649,6 @@ packages:
   /@remix-run/router@1.11.0:
     resolution: {integrity: sha512-BHdhcWgeiudl91HvVa2wxqZjSHbheSgIiDvxrF1VjFzBzpTtuDPkOdOi3Iqvc08kXtFkLjhbS+ML9aM8mJS+wQ==}
     engines: {node: '>=14.0.0'}
-    dev: false
-
-  /@tailwindcss/typography@0.5.10(tailwindcss@3.3.5):
-    resolution: {integrity: sha512-Pe8BuPJQJd3FfRnm6H0ulKIGoMEQS+Vq01R6M5aCrFB/ccR/shT+0kXLjouGC1gFLm9hopTFN+DMP0pfwRWzPw==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0 || insiders'
-    dependencies:
-      lodash.castarray: 4.4.0
-      lodash.isplainobject: 4.0.6
-      lodash.merge: 4.6.2
-      postcss-selector-parser: 6.0.10
-      tailwindcss: 3.3.5
     dev: false
 
   /@types/babel__core@7.20.3:
@@ -1596,16 +1560,9 @@ packages:
       p-locate: 5.0.0
     dev: true
 
-  /lodash.castarray@4.4.0:
-    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
-    dev: false
-
-  /lodash.isplainobject@4.0.6:
-    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
-    dev: false
-
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+    dev: true
 
   /loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -1811,14 +1768,6 @@ packages:
     dependencies:
       postcss: 8.4.31
       postcss-selector-parser: 6.0.13
-
-  /postcss-selector-parser@6.0.10:
-    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
-    engines: {node: '>=4'}
-    dependencies:
-      cssesc: 3.0.0
-      util-deprecate: 1.0.2
-    dev: false
 
   /postcss-selector-parser@6.0.13:
     resolution: {integrity: sha512-EaV1Gl4mUEV4ddhDnv/xtj7sxwrwxdetHdWUGnT4VJQf+4d05v6lHYZr8N573k5Z0BViss7BDhfWtKS3+sfAqQ==}

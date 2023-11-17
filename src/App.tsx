@@ -2,7 +2,6 @@ import { createBrowserRouter,RouterProvider,RouteObject,} from "react-router-dom
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Home from "@/routes/Home";
 import Analysis from "@/routes/Analysis";
-import React from "react";
 
 const routes: RouteObject[] = [
   {
