@@ -1,60 +1,50 @@
 import { useState } from "react";
 
-import { Loader2 } from "lucide-react";
-
+import { UploadIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import uploadicon from "../assets/images/upload_logo2.png";
 
 export default function Home() {
   const [file, setfile] = useState();
 
-  const handlechange = (e: any) => {
-    setfile(e.target.value);
+  const handleChange = (e: any) => {
+    setfile(e.target.files[0]);
+
     console.log(file);
   };
 
   return (
-    <>
-      <div className="px-10 py-10 bg-[#202020]">
-        <div className="flex justify-center flex-col gap-5 items-center ">
-          <h1 className="text-[60px] text-[#fb8734] font-marker tracking-wide">
-            INNERGRAM
-          </h1>
-          <p className=" px-[380px] text-[20px] font-mono font-bold text-center">
-            Dive into your Instagram insights effortlessly with our Open Source
-            Analytics Tool!
-          </p>
-          <br></br>
+    <div className="h-screen py-12 flex justify-evenly flex-col gap-5 items-center">
+      <div className="flex flex-col items-center space-y-4">
+        <h1 className="text-6xl text-primary font-marker tracking-wide">
+          INNERGRAM
+        </h1>
 
-          <div className=" w-[600px] h-[300px] p-28 bg-[#202020] border-dashed border-4 border-white text-center text-lg font-semibold hover:border-black">
-            <label htmlFor="fileinput" className="block text-[18px] font-pacific">
-              Click here to upload your file
-            </label>
-            <label htmlFor="fileinput" className="block my-[8px] ">
-              <Button variant="outline" size="icon" className=" bg-[#202020] border-white border-[1px]">
-                <img src={uploadicon} alt="Custom Icon" className="h-5 w-6" />
-              </Button>
-            </label>
-            <input
-              type="file"
-              id="fileinput"
-              style={{}}
-              className="inset-0 opacity-0 cursor-pointer "
-              onClick={(e) => e.stopPropagation()}
-            ></input>
-          </div>
-
-          {/* <img src={uploadicon}></img> */}
-          <br></br>
-          <Button
-            className=" bg-[#fb8734] p-[26px] font-mono text-xl "
-            onChange={handlechange}
-          >
-            <Loader2 className="mr-2 h-6 w-6 animate-spin" />
-            Let's Analyse
-          </Button>
-        </div>
+        <p className="w-2/5 text-xl font-mono text-center">
+          Dive into your Instagram insights effortlessly with our Open Source
+          Analytics Tool!
+        </p>
       </div>
-    </>
+
+      <div className="flex items-center justify-center w-2/6">
+        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-[30vh] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-secondary">
+            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <UploadIcon className="w-12 h-12 text-gray-400" />
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">(only JSON format supported)</p>
+            </div>
+            <input id="dropzone-file" type="file" className="hidden" onChange={handleChange} />
+        </label>
+      </div>
+
+      <div className="flex flex-col w-1/5">
+        <div className="h-5 border-b-4 border-dotted border-primary text-2xl text-center">
+          <span className="bg-background px-5">OR</span>
+        </div>    
+
+        <Button className="mt-8">
+          Try a Demo
+        </Button>
+      </div>
+    </div>
   );
 }
