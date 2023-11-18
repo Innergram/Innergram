@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import * as zip from "@zip.js/zip.js";
+import JsZip from "jszip";
 
 export default function Analysis() {
   let location = useLocation();
@@ -12,23 +12,24 @@ export default function Analysis() {
 
   let { zipArrayBuffer }: { zipArrayBuffer: ArrayBuffer | undefined } = location.state;
 
-  const [entries, setEntries] = useState<zip.Entry[]>([]);
-
-  const zipFile = useMemo(() => {
-    if (!zipArrayBuffer) return;
-
-    return new zip.ZipReader(new zip.Uint8ArrayReader(new Uint8Array(zipArrayBuffer)));
-  }, [ zipArrayBuffer ]);
+  const [zipFile, setZipFile] = useState<JsZip>();
 
   useEffect(() => {
-    if (!zipFile) return;
-    
-    zipFile.getEntries().then(e => setEntries(e));
-  }, [ zipFile ]); 
+    if (!zipArrayBuffer) return;
+
+    new JsZip().loadAsync(zipArrayBuffer).then(setZipFile);
+  }, [ zipArrayBuffer ]);
+
+  const files = useMemo(() => {
+    if (!zipFile) return [];
+
+    return Object.values(zipFile.files).map((file) => file.name);
+  }, [ zipFile ]);
 
   return <>
-    {entries && entries.map((entry) => {
-      return <p>{entry.filename}</p>;
-    })}
+    {zipFile && <>
+      <h1>Zip file loaded</h1></>}
+
+    {files.map((file) => <p>{file}</p>)}
   </>;
 }
