@@ -8,6 +8,9 @@ dependencies:
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.2.31)(react@18.2.0)
+  '@zip.js/zip.js':
+    specifier: ^2.7.31
+    version: 2.7.31
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -863,6 +866,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@zip.js/zip.js@2.7.31:
+    resolution: {integrity: sha512-Q4XWZO0IXLEzHB580LUgca/KpwX9/KdtDTvfhqKqiirYL5hHvOmWjD+gyqRhv+Muk7I+LpVZvx9E+WsPv5G4Sw==}
+    engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=16.5.0'}
+    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
