@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import JsZip from "jszip";
+import { BadgeCheckIcon } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 function ProfileCard({ processing }: { processing: boolean }) {
   return (
@@ -19,23 +22,53 @@ function ProfileCard({ processing }: { processing: boolean }) {
             <Skeleton className="h-4" />
             <Skeleton className="h-4" />
           </div>
+
+          <div className="flex-grow flex flex-col items-end gap-2">
+            <Skeleton className="h-4 w-[10vw]" />
+            <Skeleton className="h-4 w-[10vw]" />
+          </div>
         </>
       ) : (
         <>
-          <Avatar>
+          <Avatar className="h-16 w-16">
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
 
-          <div className="flex flex-col">
-            <p>@shadcn</p>
+          <div className="flex flex-col gap-1">
+            <div className="flex flex-row space-x-2 items-center">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <p className="text-xl text-primary font-mono">@shadcn</p>
+                  </TooltipTrigger>
+
+                  <TooltipContent>
+                    AKA Shadcn
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              <Separator orientation="vertical" className="h-5" />
+
+              <BadgeCheckIcon className="text-accent" />
+              <BadgeCheckIcon className="text-accent" />
+              <BadgeCheckIcon className="text-accent" />
+            </div>
 
             <p>I own a computer.</p>
           </div>
 
-          <div className="flex flex-col flex-grow items-end">
-            <p>Followers: 11.2k</p>
-            <p>Following: 500</p>
+          <div className="flex flex-col flex-grow items-end gap-1">
+            <div className="flex flex-row gap-2 items-center">
+              <p>Followers: <span className="text-primary">11.2k</span></p>
+              
+              <Separator orientation="vertical" className="h-5" />
+
+              <p>Following: <span className="text-primary">500</span></p>
+            </div>
+
+            <p className="font-thin opacity-30">Joined 05/12/2016</p>
           </div>
         </>
       )}
