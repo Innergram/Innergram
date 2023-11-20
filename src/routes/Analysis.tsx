@@ -49,7 +49,7 @@ function LinkedAccountsCard() {
           >
             <img src={account.icon} alt={account.name} className="h-8 w-8 mb-1" />
 
-            <p>{account.name}</p>
+            <p className="text-primary">{account.name}</p>
           </a>
         ))}
       </div>
