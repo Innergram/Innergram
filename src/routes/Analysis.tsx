@@ -195,7 +195,7 @@ export default function Analysis() {
     location.state;
 
   const [processing, setProcessing] = useState(false);
-  const [zipFile, setZipFile] = useState<JsZip>();
+  const [_zipFile, setZipFile] = useState<JsZip>();
 
   // First time initialization
   useEffect(() => {
