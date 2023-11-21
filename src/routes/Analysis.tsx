@@ -83,7 +83,7 @@ export default function Analysis() {
       </div>
 
       <div>
-        <FollowerGrowth />
+        <FollowerGrowth followers={followers} />
       </div>
     </div>
   );
