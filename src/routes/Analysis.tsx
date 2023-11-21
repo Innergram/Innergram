@@ -22,27 +22,11 @@ import AccountInfo from "@/interfaces/AccountInfo";
 import PersonalInfo from "@/interfaces/PersonalInfo";
 import Flag from "@/components/Flag";
 import Badge from "@/components/Badge";
+import fetchLinkedAccounts from "@/lib/fetchers/fetchLinkedAccounts";
+import LinkedAccount from "@/interfaces/LinkedAccount";
 
 
-function LinkedAccountsCard() {
-  const accounts = [
-    {
-      name: "Facebook",
-      icon: "https://www.facebook.com/favicon.ico",
-      url: "https://facebook.com/shadcn",
-    },
-    {
-      name: "Threads",
-      icon: "https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/082023/screen_shot_2023-08-11_at_2.20.24_pm.png?eI_UtE0Cw_RleVmlqEu__hq0uJabwyGl&itok=4KkDNPuY",
-      url: "https://threads.net/shadcn",
-    },
-    {
-      name: "Instagram",
-      icon: "https://www.instagram.com/favicon.ico",
-      url: "https://instagram.com/shadcn",
-    }
-  ];
-
+function LinkedAccountsCard({ accounts }: { accounts: LinkedAccount[] | undefined }) {
   return (
     <Card className="p-4 flex flex-col w-full space-y-4">
       <p className="font-marker text-primary/80 text-2xl">
@@ -50,16 +34,25 @@ function LinkedAccountsCard() {
       </p>
 
       <div className="flex flex-row justify-evenly items-center">
-        {accounts.map((account) => (
-          <a
-            href={account.url}
-            className="flex flex-col justify-center items-center"
-          >
-            <img src={account.icon} alt={account.name} className="h-8 w-8 mb-1" />
+        {accounts?.map((account) => {
+          const icons = {
+            "Facebook": "https://www.facebook.com/favicon.ico",
+            "Threads": "https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/082023/screen_shot_2023-08-11_at_2.20.24_pm.png?eI_UtE0Cw_RleVmlqEu__hq0uJabwyGl&itok=4KkDNPuY",
+            "Instagram": "https://www.instagram.com/favicon.ico" 
+          };
 
-            <p className="text-primary">{account.name}</p>
-          </a>
-        ))}
+          return (
+            <a
+              // href={account.url}
+              className="flex flex-col justify-center items-center"
+            >
+              {/* @ts-ignore */}
+              <img src={icons[account?.platform]} alt={account.platform} className="h-8 w-8 mb-1" />
+
+              <p className="text-primary">{account.username}</p>
+            </a>
+          )
+        })}
       </div>
     </Card>
   );
@@ -210,6 +203,7 @@ export default function Analysis() {
   const [processing, setProcessing] = useState(false);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo | undefined>();
   const [accountInfo, setAccountInfo] = useState<AccountInfo | undefined>();
+  const [linkedAccounts, setLinkedAccounts] = useState<LinkedAccount[]>();
 
   // First time initialization
   useEffect(() => {
@@ -230,6 +224,7 @@ export default function Analysis() {
     new JsZip().loadAsync(zipArrayBuffer).then(zipFile => {
       fetchPersonalInfo(zipFile!).then(setPersonalInfo);
       fetchAccountInfo(zipFile!).then(setAccountInfo);
+      fetchLinkedAccounts(zipFile!).then(setLinkedAccounts)
     });
   }, [zipArrayBuffer]);
 
@@ -243,8 +238,7 @@ export default function Analysis() {
         <TopEmojisCard />
 
         <div className="flex flex-col flex-grow space-y-2">
-          <LinkedAccountsCard />
-          <LinkedAccountsCard />
+          <LinkedAccountsCard accounts={linkedAccounts} />
         </div>
       </div>
     </div>
