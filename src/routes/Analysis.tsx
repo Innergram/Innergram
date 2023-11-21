@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import JsZip from "jszip";
 import { BadgeCheckIcon, ExternalLinkIcon, PersonStandingIcon } from "lucide-react";
+import CountryFlagIcons from "country-flag-icons/react/3x2";
 
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ModeToggle";
@@ -15,9 +16,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import fetchPersonalInformation from "@/lib/fetchers/fetchPersonalInformation";
-import PersonalInformation from "@/interfaces/PersonalInformation";
+import fetchPersonalInfo from "@/lib/fetchers/fetchPersonalInfo";
 import { initials } from "@/lib/utils";
+import fetchAccountInfo from "@/lib/fetchers/fetchAccountInfo";
+import AccountInfo from "@/interfaces/AccountInfo";
+import PersonalInfo from "@/interfaces/PersonalInfo";
+
 
 function LinkedAccountsCard() {
   const accounts = [
@@ -115,9 +119,11 @@ function Badge({ icon, tooltip: tooltip }: {icon: React.ReactNode, tooltip: Reac
   )
 }
 
-function ProfileCard({ processing, personalInformation }: { processing: boolean, personalInformation?: PersonalInformation }) {
-  const avatarImgUrl = URL.createObjectURL(personalInformation?.profile_photo || new Blob());
-  const profileUrl = `https://instagram.com/${personalInformation?.username}`;
+function ProfileCard({ processing, personalInfo, accountInfo }: { processing: boolean, personalInfo?: PersonalInfo, accountInfo?: AccountInfo }) {
+  const avatarImgUrl = URL.createObjectURL(personalInfo?.profile_photo || new Blob());
+  const profileUrl = `https://instagram.com/${personalInfo?.username}`;
+
+  const CountryFlag = CountryFlagIcons[accountInfo?.country_code || "IN"];
 
   return (
     <Card className="relative flex flex-row p-4 items-center space-x-4">
@@ -142,8 +148,8 @@ function ProfileCard({ processing, personalInformation }: { processing: boolean,
           </a>
 
           <Avatar className="h-16 w-16">
-            <AvatarImage src={avatarImgUrl} alt={`@${personalInformation?.username}`} />
-            <AvatarFallback>{initials(personalInformation?.name ?? "")}</AvatarFallback>
+            <AvatarImage src={avatarImgUrl} alt={`@${personalInfo?.username}`} />
+            <AvatarFallback>{initials(personalInfo?.name ?? "")}</AvatarFallback>
           </Avatar>
 
           <div className="flex flex-col gap-1">
@@ -151,20 +157,21 @@ function ProfileCard({ processing, personalInformation }: { processing: boolean,
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <p className="text-xl text-primary font-mono">@{personalInformation?.username}</p>
+                    <p className="text-xl text-primary font-mono">@{personalInfo?.username}</p>
                   </TooltipTrigger>
 
-                  <TooltipContent>AKA {personalInformation?.name}</TooltipContent>
+                  <TooltipContent>AKA {personalInfo?.name}</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
 
               <Separator orientation="vertical" className="h-5" />
 
-              {!personalInformation?.isPrivateAccount && <Badge icon={<PersonStandingIcon className="text-accent hover:text-primary" />} tooltip={"Public Account"} />}
+              <Badge icon={<p className="w-6 h-4"><CountryFlag /></p>} tooltip="Account based in" />
+              {!personalInfo?.isPrivateAccount && <Badge icon={<PersonStandingIcon className="text-accent hover:text-primary" />} tooltip={"Public Account"} />}
               <Badge icon={<BadgeCheckIcon className="text-accent hover:text-primary" />} tooltip={"Verified Account"} />
             </div>
 
-            <p className="w-4/5">{personalInformation?.bio}</p>
+            <p className="w-4/5">{personalInfo?.bio}</p>
           </div>
 
           <div className="flex flex-col flex-grow items-end gap-1">
@@ -217,7 +224,8 @@ export default function Analysis() {
     location.state;
 
   const [processing, setProcessing] = useState(false);
-  const [personalInformation, setPersonalInformation] = useState<PersonalInformation | undefined>();
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | undefined>();
+  const [accountInfo, setAccountInfo] = useState<AccountInfo | undefined>();
 
   // First time initialization
   useEffect(() => {
@@ -236,7 +244,8 @@ export default function Analysis() {
     if (!zipArrayBuffer) return;
 
     new JsZip().loadAsync(zipArrayBuffer).then(zipFile => {
-      fetchPersonalInformation(zipFile!).then(setPersonalInformation);
+      fetchPersonalInfo(zipFile!).then(setPersonalInfo);
+      fetchAccountInfo(zipFile!).then(setAccountInfo);
     });
   }, [zipArrayBuffer]);
 
@@ -244,7 +253,7 @@ export default function Analysis() {
     <div className="px-8 py-4 flex flex-col space-y-4">
       <TopHeader />
 
-      <ProfileCard processing={processing} personalInformation={personalInformation} />
+      <ProfileCard processing={processing} personalInfo={personalInfo} accountInfo={accountInfo} />
 
       <div className="flex flex-row justify-stretch space-x-4 w-full">
         <TopEmojisCard />

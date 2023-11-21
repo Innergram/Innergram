@@ -1,4 +1,4 @@
-export default interface PersonalInformation {
+export default interface PersonalInfo {
     profile_photo: Blob | undefined,
     email_address: string,
     phone_number: string,

@@ -1,7 +1,8 @@
-import PersonalInformation from "@/interfaces/PersonalInformation";
 import JSZip from "jszip";
 
-export default async function fetchPersonalInformation(zip: JSZip): Promise<PersonalInformation | undefined> {
+import PersonalInfo from "@/interfaces/PersonalInfo";
+
+export default async function fetchPersonalInfo(zip: JSZip): Promise<PersonalInfo | undefined> {
   const contents =  await zip.file("personal_information/personal_information.json")?.async("text");
   if (!contents) return;
 
