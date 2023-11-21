@@ -24,6 +24,10 @@ import Flag from "@/components/Flag";
 import Badge from "@/components/Badge";
 import fetchLinkedAccounts from "@/lib/fetchers/fetchLinkedAccounts";
 import LinkedAccount from "@/interfaces/LinkedAccount";
+import fetchFollowers from "@/lib/fetchers/fetchFollowers";
+import Follower from "@/interfaces/Follower";
+import Following from "@/interfaces/Following";
+import fetchFollowing from "@/lib/fetchers/fetchFollowing";
 
 
 function LinkedAccountsCard({ accounts }: { accounts: LinkedAccount[] | undefined }) {
@@ -98,7 +102,7 @@ function TopEmojisCard() {
   );
 }
 
-function ProfileCard({ processing, personalInfo, accountInfo }: { processing: boolean, personalInfo?: PersonalInfo, accountInfo?: AccountInfo }) {
+function ProfileCard({ processing, personalInfo, accountInfo, followers, following }: { processing: boolean, personalInfo?: PersonalInfo, accountInfo?: AccountInfo, followers: Follower[] | undefined, following: Following[] | undefined }) {
   const avatarImgUrl = URL.createObjectURL(personalInfo?.profile_photo || new Blob());
   const profileUrl = `https://instagram.com/${personalInfo?.username}`;
 
@@ -154,13 +158,13 @@ function ProfileCard({ processing, personalInfo, accountInfo }: { processing: bo
           <div className="flex flex-col flex-grow items-end gap-1">
             <div className="flex flex-row gap-2 items-center">
               <p>
-                Followers: <span className="text-primary">11.2k</span>
+                Followers: <span className="text-primary">{followers?.length}</span>
               </p>
 
               <Separator orientation="vertical" className="h-5" />
 
               <p>
-                Following: <span className="text-primary">500</span>
+                Following: <span className="text-primary">{following?.length}</span>
               </p>
             </div>
 
@@ -204,6 +208,8 @@ export default function Analysis() {
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo | undefined>();
   const [accountInfo, setAccountInfo] = useState<AccountInfo | undefined>();
   const [linkedAccounts, setLinkedAccounts] = useState<LinkedAccount[]>();
+  const [followers, setFollowers] = useState<Follower[]>();
+  const [following, setFollowing] = useState<Following[]>();
 
   // First time initialization
   useEffect(() => {
@@ -224,7 +230,9 @@ export default function Analysis() {
     new JsZip().loadAsync(zipArrayBuffer).then(zipFile => {
       fetchPersonalInfo(zipFile!).then(setPersonalInfo);
       fetchAccountInfo(zipFile!).then(setAccountInfo);
-      fetchLinkedAccounts(zipFile!).then(setLinkedAccounts)
+      fetchLinkedAccounts(zipFile!).then(setLinkedAccounts);
+      fetchFollowers(zipFile!).then(setFollowers);
+      fetchFollowing(zipFile!).then(setFollowing);
     });
   }, [zipArrayBuffer]);
 
@@ -232,7 +240,7 @@ export default function Analysis() {
     <div className="px-8 py-4 flex flex-col space-y-4">
       <TopHeader />
 
-      <ProfileCard processing={processing} personalInfo={personalInfo} accountInfo={accountInfo} />
+      <ProfileCard processing={processing} personalInfo={personalInfo} accountInfo={accountInfo} followers={followers} following={following} />
 
       <div className="flex flex-row justify-stretch space-x-4 w-full">
         <TopEmojisCard />
