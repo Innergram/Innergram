@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import JsZip from "jszip";
-import { BadgeCheckIcon, ExternalLinkIcon } from "lucide-react";
+import { BadgeCheckIcon, ExternalLinkIcon, PersonStandingIcon } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ModeToggle";
@@ -15,6 +15,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import fetchPersonalInformation from "@/lib/fetchers/fetchPersonalInformation";
+import PersonalInformation from "@/interfaces/PersonalInformation";
+import { initials } from "@/lib/utils";
 
 function LinkedAccountsCard() {
   const accounts = [
@@ -97,7 +100,25 @@ function TopEmojisCard() {
   );
 }
 
-function ProfileCard({ processing }: { processing: boolean }) {
+function Badge({ icon, tooltip: tooltip }: {icon: React.ReactNode, tooltip: React.ReactNode}) {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          {icon}
+        </TooltipTrigger>
+        <TooltipContent>
+          {tooltip}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}
+
+function ProfileCard({ processing, personalInformation }: { processing: boolean, personalInformation?: PersonalInformation }) {
+  const avatarImgUrl = URL.createObjectURL(personalInformation?.profile_photo || new Blob());
+  const profileUrl = `https://instagram.com/${personalInformation?.username}`;
+
   return (
     <Card className="relative flex flex-row p-4 items-center space-x-4">
       {processing ? (
@@ -116,13 +137,13 @@ function ProfileCard({ processing }: { processing: boolean }) {
         </>
       ) : (
         <>
-          <a href="https://instagram.com/shadcn" target="_blank">
+          <a href={profileUrl} target="_blank">
             <ExternalLinkIcon className="absolute top-0 right-0 text-primary/30 hover:text-primary" />
           </a>
 
           <Avatar className="h-16 w-16">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={avatarImgUrl} alt={`@${personalInformation?.username}`} />
+            <AvatarFallback>{initials(personalInformation?.name ?? "")}</AvatarFallback>
           </Avatar>
 
           <div className="flex flex-col gap-1">
@@ -130,21 +151,20 @@ function ProfileCard({ processing }: { processing: boolean }) {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <p className="text-xl text-primary font-mono">@shadcn</p>
+                    <p className="text-xl text-primary font-mono">@{personalInformation?.username}</p>
                   </TooltipTrigger>
 
-                  <TooltipContent>AKA Shadcn</TooltipContent>
+                  <TooltipContent>AKA {personalInformation?.name}</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
 
               <Separator orientation="vertical" className="h-5" />
 
-              <BadgeCheckIcon className="text-accent" />
-              <BadgeCheckIcon className="text-accent" />
-              <BadgeCheckIcon className="text-accent" />
+              {!personalInformation?.isPrivateAccount && <Badge icon={<PersonStandingIcon className="text-accent hover:text-primary" />} tooltip={"Public Account"} />}
+              <Badge icon={<BadgeCheckIcon className="text-accent hover:text-primary" />} tooltip={"Verified Account"} />
             </div>
 
-            <p>I own a computer.</p>
+            <p className="w-4/5">{personalInformation?.bio}</p>
           </div>
 
           <div className="flex flex-col flex-grow items-end gap-1">
@@ -172,9 +192,11 @@ function TopHeader() {
   return (
     <div className="flex flex-row justify-between items-center">
       <div>
-        <h1 className="text-4xl font-bold font-marker text-primary">
-          InstaAnalysis
-        </h1>
+        <Link to="/">
+          <h1 className="text-4xl font-bold font-marker text-primary">
+            InstaAnalysis
+          </h1>
+        </Link>
       </div>
 
       <div>
@@ -195,7 +217,7 @@ export default function Analysis() {
     location.state;
 
   const [processing, setProcessing] = useState(false);
-  const [_zipFile, setZipFile] = useState<JsZip>();
+  const [personalInformation, setPersonalInformation] = useState<PersonalInformation | undefined>();
 
   // First time initialization
   useEffect(() => {
@@ -213,14 +235,16 @@ export default function Analysis() {
   useEffect(() => {
     if (!zipArrayBuffer) return;
 
-    new JsZip().loadAsync(zipArrayBuffer).then(setZipFile);
+    new JsZip().loadAsync(zipArrayBuffer).then(zipFile => {
+      fetchPersonalInformation(zipFile!).then(setPersonalInformation);
+    });
   }, [zipArrayBuffer]);
 
   return (
     <div className="px-8 py-4 flex flex-col space-y-4">
       <TopHeader />
 
-      <ProfileCard processing={processing} />
+      <ProfileCard processing={processing} personalInformation={personalInformation} />
 
       <div className="flex flex-row justify-stretch space-x-4 w-full">
         <TopEmojisCard />
