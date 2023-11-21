@@ -2,16 +2,22 @@ import JSZip from "jszip";
 
 import PersonalInfo from "@/interfaces/PersonalInfo";
 
-export default async function fetchPersonalInfo(zip: JSZip): Promise<PersonalInfo | undefined> {
-  const contents =  await zip.file("personal_information/personal_information.json")?.async("text");
+export default async function fetchPersonalInfo(
+  zip: JSZip,
+): Promise<PersonalInfo | undefined> {
+  const contents = await zip
+    .file("personal_information/personal_information.json")
+    ?.async("text");
   if (!contents) return;
 
   const json = JSON.parse(contents);
   const profile_user = json.profile_user[0];
 
   const profile_photo_path = profile_user.media_map_data["Profile photo"].uri;
-  const profile_photo = profile_photo_path ? await zip.file(profile_photo_path)?.async("blob") : undefined;
-  
+  const profile_photo = profile_photo_path
+    ? await zip.file(profile_photo_path)?.async("blob")
+    : undefined;
+
   const string_map_data = profile_user.string_map_data;
   const email_address = string_map_data["Email address"].value;
   const phone_number = string_map_data["Phone number"].value;
@@ -31,6 +37,6 @@ export default async function fetchPersonalInfo(zip: JSZip): Promise<PersonalInf
     bio,
     gender,
     dob,
-    isPrivateAccount
+    isPrivateAccount,
   };
 }

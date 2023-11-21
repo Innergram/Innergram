@@ -2,8 +2,12 @@ import JSZip from "jszip";
 
 import AccountInformation from "@/interfaces/AccountInfo";
 
-export default async function fetchAccountInfo(zip: JSZip): Promise<AccountInformation | undefined> {
-  const contents = await zip.file("personal_information/account_information.json")?.async("text");
+export default async function fetchAccountInfo(
+  zip: JSZip,
+): Promise<AccountInformation | undefined> {
+  const contents = await zip
+    .file("personal_information/account_information.json")
+    ?.async("text");
   if (!contents) return;
 
   const json = JSON.parse(contents);
@@ -15,6 +19,6 @@ export default async function fetchAccountInfo(zip: JSZip): Promise<AccountInfor
 
   return {
     country_code,
-    last_login
-  }
+    last_login,
+  };
 }

@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import JsZip from "jszip";
-import { BadgeCheckIcon, ExternalLinkIcon, PersonStandingIcon } from "lucide-react";
+import {
+  BadgeCheckIcon,
+  ExternalLinkIcon,
+  PersonStandingIcon,
+} from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ModeToggle";
@@ -29,8 +33,11 @@ import Follower from "@/interfaces/Follower";
 import Following from "@/interfaces/Following";
 import fetchFollowing from "@/lib/fetchers/fetchFollowing";
 
-
-function LinkedAccountsCard({ accounts }: { accounts: LinkedAccount[] | undefined }) {
+function LinkedAccountsCard({
+  accounts,
+}: {
+  accounts: LinkedAccount[] | undefined;
+}) {
   return (
     <Card className="p-4 flex flex-col w-full space-y-4">
       <p className="font-marker text-primary/80 text-2xl">
@@ -40,9 +47,10 @@ function LinkedAccountsCard({ accounts }: { accounts: LinkedAccount[] | undefine
       <div className="flex flex-row justify-evenly items-center">
         {accounts?.map((account) => {
           const icons = {
-            "Facebook": "https://www.facebook.com/favicon.ico",
-            "Threads": "https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/082023/screen_shot_2023-08-11_at_2.20.24_pm.png?eI_UtE0Cw_RleVmlqEu__hq0uJabwyGl&itok=4KkDNPuY",
-            "Instagram": "https://www.instagram.com/favicon.ico" 
+            Facebook: "https://www.facebook.com/favicon.ico",
+            Threads:
+              "https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/082023/screen_shot_2023-08-11_at_2.20.24_pm.png?eI_UtE0Cw_RleVmlqEu__hq0uJabwyGl&itok=4KkDNPuY",
+            Instagram: "https://www.instagram.com/favicon.ico",
           };
 
           return (
@@ -51,11 +59,15 @@ function LinkedAccountsCard({ accounts }: { accounts: LinkedAccount[] | undefine
               className="flex flex-col justify-center items-center"
             >
               {/* @ts-ignore */}
-              <img src={icons[account?.platform]} alt={account.platform} className="h-8 w-8 mb-1" />
+              <img
+                src={icons[account?.platform]}
+                alt={account.platform}
+                className="h-8 w-8 mb-1"
+              />
 
               <p className="text-primary">{account.username}</p>
             </a>
-          )
+          );
         })}
       </div>
     </Card>
@@ -84,11 +96,8 @@ function TopEmojisCard() {
   return (
     <Card className="p-4 flex flex-row justify-between items-center">
       <div className="flex flex-col items-center justify-center mr-8">
-        <p className="text-primary/80 font-marker text-4xl">
-          Your Top Emojis
-        </p>
+        <p className="text-primary/80 font-marker text-4xl">Your Top Emojis</p>
       </div>
-      
 
       <div className="grid grid-cols-5">
         {emojis.map((emoji, idx) => (
@@ -102,8 +111,22 @@ function TopEmojisCard() {
   );
 }
 
-function ProfileCard({ processing, personalInfo, accountInfo, followers, following }: { processing: boolean, personalInfo?: PersonalInfo, accountInfo?: AccountInfo, followers: Follower[] | undefined, following: Following[] | undefined }) {
-  const avatarImgUrl = URL.createObjectURL(personalInfo?.profile_photo || new Blob());
+function ProfileCard({
+  processing,
+  personalInfo,
+  accountInfo,
+  followers,
+  following,
+}: {
+  processing: boolean;
+  personalInfo?: PersonalInfo;
+  accountInfo?: AccountInfo;
+  followers: Follower[] | undefined;
+  following: Following[] | undefined;
+}) {
+  const avatarImgUrl = URL.createObjectURL(
+    personalInfo?.profile_photo || new Blob(),
+  );
   const profileUrl = `https://instagram.com/${personalInfo?.username}`;
 
   return (
@@ -129,8 +152,13 @@ function ProfileCard({ processing, personalInfo, accountInfo, followers, followi
           </a>
 
           <Avatar className="h-16 w-16">
-            <AvatarImage src={avatarImgUrl} alt={`@${personalInfo?.username}`} />
-            <AvatarFallback>{initials(personalInfo?.name ?? "")}</AvatarFallback>
+            <AvatarImage
+              src={avatarImgUrl}
+              alt={`@${personalInfo?.username}`}
+            />
+            <AvatarFallback>
+              {initials(personalInfo?.name ?? "")}
+            </AvatarFallback>
           </Avatar>
 
           <div className="flex flex-col gap-1">
@@ -138,7 +166,9 @@ function ProfileCard({ processing, personalInfo, accountInfo, followers, followi
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <p className="text-xl text-primary font-mono">@{personalInfo?.username}</p>
+                    <p className="text-xl text-primary font-mono">
+                      @{personalInfo?.username}
+                    </p>
                   </TooltipTrigger>
 
                   <TooltipContent>AKA {personalInfo?.name}</TooltipContent>
@@ -147,9 +177,28 @@ function ProfileCard({ processing, personalInfo, accountInfo, followers, followi
 
               <Separator orientation="vertical" className="h-5" />
 
-              <Badge icon={<p className="w-6 h-4"><Flag countryCode={accountInfo?.country_code || "US"} /></p>} tooltip="Account based in" />
-              {!personalInfo?.isPrivateAccount && <Badge icon={<PersonStandingIcon className="text-accent hover:text-primary" />} tooltip={"Public Account"} />}
-              <Badge icon={<BadgeCheckIcon className="text-accent hover:text-primary" />} tooltip={"Verified Account"} />
+              <Badge
+                icon={
+                  <p className="w-6 h-4">
+                    <Flag countryCode={accountInfo?.country_code || "US"} />
+                  </p>
+                }
+                tooltip="Account based in"
+              />
+              {!personalInfo?.isPrivateAccount && (
+                <Badge
+                  icon={
+                    <PersonStandingIcon className="text-accent hover:text-primary" />
+                  }
+                  tooltip={"Public Account"}
+                />
+              )}
+              <Badge
+                icon={
+                  <BadgeCheckIcon className="text-accent hover:text-primary" />
+                }
+                tooltip={"Verified Account"}
+              />
             </div>
 
             <p className="w-4/5">{personalInfo?.bio}</p>
@@ -158,13 +207,15 @@ function ProfileCard({ processing, personalInfo, accountInfo, followers, followi
           <div className="flex flex-col flex-grow items-end gap-1">
             <div className="flex flex-row gap-2 items-center">
               <p>
-                Followers: <span className="text-primary">{followers?.length}</span>
+                Followers:{" "}
+                <span className="text-primary">{followers?.length}</span>
               </p>
 
               <Separator orientation="vertical" className="h-5" />
 
               <p>
-                Following: <span className="text-primary">{following?.length}</span>
+                Following:{" "}
+                <span className="text-primary">{following?.length}</span>
               </p>
             </div>
 
@@ -227,7 +278,7 @@ export default function Analysis() {
   useEffect(() => {
     if (!zipArrayBuffer) return;
 
-    new JsZip().loadAsync(zipArrayBuffer).then(zipFile => {
+    new JsZip().loadAsync(zipArrayBuffer).then((zipFile) => {
       fetchPersonalInfo(zipFile!).then(setPersonalInfo);
       fetchAccountInfo(zipFile!).then(setAccountInfo);
       fetchLinkedAccounts(zipFile!).then(setLinkedAccounts);
@@ -240,7 +291,13 @@ export default function Analysis() {
     <div className="px-8 py-4 flex flex-col space-y-4">
       <TopHeader />
 
-      <ProfileCard processing={processing} personalInfo={personalInfo} accountInfo={accountInfo} followers={followers} following={following} />
+      <ProfileCard
+        processing={processing}
+        personalInfo={personalInfo}
+        accountInfo={accountInfo}
+        followers={followers}
+        following={following}
+      />
 
       <div className="flex flex-row justify-stretch space-x-4 w-full">
         <TopEmojisCard />

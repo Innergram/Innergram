@@ -1,4 +1,4 @@
 export default interface LinkedAccount {
-    platform: string,
-    username: string
+  platform: string;
+  username: string;
 }

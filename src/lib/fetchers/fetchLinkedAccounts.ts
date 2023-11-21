@@ -2,8 +2,12 @@ import JSZip from "jszip";
 
 import LinkedAccount from "@/interfaces/LinkedAccount";
 
-export default async function fetchLinkedAccounts(zip: JSZip): Promise<LinkedAccount[]> {
-  const contents = await zip.file("personal_information/linked_meta_accounts.json")?.async("text");
+export default async function fetchLinkedAccounts(
+  zip: JSZip,
+): Promise<LinkedAccount[]> {
+  const contents = await zip
+    .file("personal_information/linked_meta_accounts.json")
+    ?.async("text");
   if (!contents) return [];
 
   const json = JSON.parse(contents);
@@ -14,7 +18,7 @@ export default async function fetchLinkedAccounts(zip: JSZip): Promise<LinkedAcc
 
     accounts.push({
       platform: map["Account type"].value,
-      username: map["User name"].value
+      username: map["User name"].value,
     });
   }
 
