@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 
 import JsZip from "jszip";
 import { BadgeCheckIcon, ExternalLinkIcon, PersonStandingIcon } from "lucide-react";
-import CountryFlagIcons from "country-flag-icons/react/3x2";
 
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ModeToggle";
@@ -21,6 +20,8 @@ import { initials } from "@/lib/utils";
 import fetchAccountInfo from "@/lib/fetchers/fetchAccountInfo";
 import AccountInfo from "@/interfaces/AccountInfo";
 import PersonalInfo from "@/interfaces/PersonalInfo";
+import Flag from "@/components/Flag";
+import Badge from "@/components/Badge";
 
 
 function LinkedAccountsCard() {
@@ -104,26 +105,9 @@ function TopEmojisCard() {
   );
 }
 
-function Badge({ icon, tooltip: tooltip }: {icon: React.ReactNode, tooltip: React.ReactNode}) {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger>
-          {icon}
-        </TooltipTrigger>
-        <TooltipContent>
-          {tooltip}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  )
-}
-
 function ProfileCard({ processing, personalInfo, accountInfo }: { processing: boolean, personalInfo?: PersonalInfo, accountInfo?: AccountInfo }) {
   const avatarImgUrl = URL.createObjectURL(personalInfo?.profile_photo || new Blob());
   const profileUrl = `https://instagram.com/${personalInfo?.username}`;
-
-  const CountryFlag = CountryFlagIcons[accountInfo?.country_code || "IN"];
 
   return (
     <Card className="relative flex flex-row p-4 items-center space-x-4">
@@ -166,7 +150,7 @@ function ProfileCard({ processing, personalInfo, accountInfo }: { processing: bo
 
               <Separator orientation="vertical" className="h-5" />
 
-              <Badge icon={<p className="w-6 h-4"><CountryFlag /></p>} tooltip="Account based in" />
+              <Badge icon={<p className="w-6 h-4"><Flag countryCode={accountInfo?.country_code || "US"} /></p>} tooltip="Account based in" />
               {!personalInfo?.isPrivateAccount && <Badge icon={<PersonStandingIcon className="text-accent hover:text-primary" />} tooltip={"Public Account"} />}
               <Badge icon={<BadgeCheckIcon className="text-accent hover:text-primary" />} tooltip={"Verified Account"} />
             </div>
