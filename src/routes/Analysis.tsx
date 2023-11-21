@@ -58,8 +58,8 @@ function LinkedAccountsCard({
               // href={account.url}
               className="flex flex-col justify-center items-center"
             >
-              {/* @ts-ignore */}
               <img
+                // @ts-ignore
                 src={icons[account?.platform]}
                 alt={account.platform}
                 className="h-8 w-8 mb-1"
