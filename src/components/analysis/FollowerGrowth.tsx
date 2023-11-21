@@ -1,6 +1,6 @@
 import { Chart } from "react-google-charts";
 
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "../ThemeProvider";
 
 export default function FollowerGrowth() {
   const { theme } = useTheme();
