@@ -1,17 +1,29 @@
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import dayjs from "dayjs";
 
 import Follower from "@/interfaces/Follower";
+import calculateFollowerGraphData from '@/lib/algos/calculateFollowerGraphData';
+
 import { Card } from '../ui/card';
 
 export default function FollowerGrowth({ followers }: { followers: Follower[] | undefined }) {
-  const sorted = followers?.sort((a, b) => a.followed_at - b.followed_at);
+  const data = calculateFollowerGraphData(followers);
 
-  let followerCount = 0;
-  const data = sorted?.map((follower) => {
-    followerCount++;
-    return { x: dayjs.unix(follower.followed_at).format("MMMM YYYY"), y: followerCount };
-  });
+  // @ts-ignore
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0];
+
+      return (
+        <div>
+          <p className="label">{`${label} : ${data.value}`}</p>
+
+          <p>Total followers: {data.payload.followersAtPresent}</p>
+        </div>
+      );
+    }
+  
+    return null;
+  };
 
   return (
     <Card className='p-4 h-[30vh] w-full flex flex-col gap-2'>
@@ -26,7 +38,9 @@ export default function FollowerGrowth({ followers }: { followers: Follower[] | 
           <YAxis dataKey="y" />
 
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <Tooltip />
+
+          {/* @ts-ignore */}
+          <Tooltip content={<CustomTooltip />} />
         </LineChart>
       </ResponsiveContainer>
     </Card>
