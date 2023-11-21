@@ -91,8 +91,8 @@ function TopEmojisCard() {
       
 
       <div className="grid grid-cols-5">
-        {emojis.map((emoji) => (
-          <div className="flex flex-col items-center space-y-1">
+        {emojis.map((emoji, idx) => (
+          <div key={idx} className="flex flex-col items-center space-y-1">
             <p className="text-6xl">{emoji}</p>
             <p className="text-primary/80 font-mono text-sm">12.3k</p>
           </div>
