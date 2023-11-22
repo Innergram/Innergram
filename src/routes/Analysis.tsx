@@ -19,6 +19,8 @@ import TopHeader from "@/components/TopHeader";
 import ProfileCard from "@/components/analysis/ProfileCard";
 import TopEmojis from "@/components/analysis/TopEmojis";
 import LinkedAccounts from "@/components/analysis/LinkedAccounts";
+import fetchChats from "@/lib/fetchers/fetchChats";
+import Chat from "@/interfaces/Chat";
 
 export default function Analysis() {
   let location = useLocation();
@@ -36,6 +38,7 @@ export default function Analysis() {
   const [linkedAccounts, setLinkedAccounts] = useState<LinkedAccount[]>();
   const [followers, setFollowers] = useState<Follower[]>();
   const [following, setFollowing] = useState<Following[]>();
+  const [chats, setChats] = useState<Chat[]>();
 
   // First time initialization
   useEffect(() => {
@@ -59,6 +62,7 @@ export default function Analysis() {
       fetchLinkedAccounts(zipFile!).then(setLinkedAccounts);
       fetchFollowers(zipFile!).then(setFollowers);
       fetchFollowing(zipFile!).then(setFollowing);
+      fetchChats(zipFile!).then(setChats)
     });
   }, [zipArrayBuffer]);
 
@@ -75,7 +79,7 @@ export default function Analysis() {
       />
 
       <div className="flex flex-row justify-stretch space-x-4 w-full">
-        <TopEmojis />
+        <TopEmojis chats={chats} />
 
         <div className="flex flex-col flex-grow space-y-2">
           <LinkedAccounts accounts={linkedAccounts} />

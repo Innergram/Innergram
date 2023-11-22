@@ -1,6 +1,8 @@
+import Chat from "@/interfaces/Chat";
+
 import { Card } from "../ui/card";
 
-export default function TopEmojis() {
+export default function TopEmojis({ chats }: { chats: Chat[] | undefined }) {
     const emojis = [
       "😂",
       "😭",
