@@ -15,7 +15,7 @@ export default function FollowerGrowth({ followers }: { followers: Follower[] | 
 
       return (
         <div>
-          <p className="label">{`${label} : ${data.value}`}</p>
+          <p className="label">{`Growth : ${data.value}`}</p>
 
           <p>Total followers: {data.payload.followersAtPresent}</p>
         </div>
