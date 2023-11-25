@@ -21,6 +21,7 @@ import TopEmojis from "@/components/analysis/TopEmojis";
 import LinkedAccounts from "@/components/analysis/LinkedAccounts";
 import fetchChats from "@/lib/fetchers/fetchChats";
 import Chat from "@/interfaces/Chat";
+import calculateTopKeyword from "@/lib/algos/calculateTopKeyword";
 
 export default function Analysis() {
   let location = useLocation();
@@ -63,8 +64,14 @@ export default function Analysis() {
       fetchFollowers(zipFile!).then(setFollowers);
       fetchFollowing(zipFile!).then(setFollowing);
       fetchChats(zipFile!).then(setChats)
+
+      
     });
   }, [zipArrayBuffer]);
+
+  useEffect(() => {
+    calculateTopKeyword(chats)
+  }, [chats])
 
   return (
     <div className="px-8 py-4 flex flex-col space-y-4">

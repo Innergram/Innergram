@@ -17,6 +17,7 @@ export default async function fetchChats(zip: JSZip): Promise<Chat[]> {
       JSON.parse(contents);
     } catch {
       console.log(`errored out on file: ${file.name}`);
+      continue;
     }
     const json = JSON.parse(contents);
     
