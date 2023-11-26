@@ -33,11 +33,11 @@ export default function FollowerGrowth({ followers }: { followers: Follower[] | 
 
       <ResponsiveContainer>
         <LineChart data={data}>
-          <Line dot={false} dataKey="y" stroke="#ff7300"  />
+          <Line dot={false} dataKey="y" stroke="#BA1C3F"  />
           <XAxis dataKey="x" />
           <YAxis dataKey="y" />
 
-          <CartesianGrid stroke="#ccc" />
+          <CartesianGrid stroke="white" />
 
           {/* @ts-ignore */}
           <Tooltip content={<CustomTooltip />} />
