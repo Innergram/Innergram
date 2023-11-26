@@ -14,6 +14,12 @@ export default function LinkedAccounts({
         </p><br></br>
   
         <div className="flex flex-row justify-evenly">
+          {accounts?.length === 0 && (
+            <p>
+              No linked accounts found
+            </p>
+          )}
+
           {accounts?.map((account) => {
             const icons = {
               Facebook: "https://www.facebook.com/favicon.ico",
