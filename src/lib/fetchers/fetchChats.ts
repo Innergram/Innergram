@@ -2,6 +2,7 @@ import JSZip from "jszip";
 
 import Chat from "@/interfaces/Chat";
 import Message from "@/interfaces/Message";
+import { latin1ToUtf8 } from "@/lib/utils";
 
 const filePathPattern = /messages\/inbox\/(?:[^/]+\/)*[^/]+\.[^/]+$/;
 
@@ -25,7 +26,7 @@ export default async function fetchChats(zip: JSZip): Promise<Chat[]> {
     const messages: Message[] = json.messages.map((m: any) => ({
       from: m.sender_name,
       sent_at: m.timestamp_ms,
-      content: m.content,
+      content: m.content ? latin1ToUtf8(m.content) : undefined,
       reactions: m.reactions ? m.reactions.map((r: any) => ({
         code: r.reaction,
         actor: r.actor
