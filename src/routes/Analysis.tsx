@@ -71,7 +71,12 @@ export default function Analysis() {
   }, [zipArrayBuffer]);
 
   useEffect(() => {
-    calculateTopKeyword(chats)
+    if (!chats) return;
+    if (!personalInfo) return;
+
+    const keywords = calculateTopKeyword(chats, personalInfo.name);
+
+    console.log("keywords", keywords)
   }, [chats])
 
   return (
