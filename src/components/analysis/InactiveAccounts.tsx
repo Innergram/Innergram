@@ -47,9 +47,6 @@ export default function InactiveAccounts({
           Least Engaged Accounts
         </p>
         <p className='text-[20px] font-mono bold text-gray-500'>Showing <span>{totalacc}</span>/<span>{totalacc}</span> Accounts</p>
-        {/* <ul>
-            {chats?.map((item)=>(<li>{item.participants[0]}</li>))}
-        </ul> */}
         <div className=''>
         <ul>
             {sortedChats?.map((item,index)=>(<li key="index" className='text-xl font-seymour-one my-4' ><span className='py-3 pr-3'>{index+1}</span>{item.participants[0]}</li>))}
