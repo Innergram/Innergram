@@ -20,7 +20,7 @@ export default function InactiveAccounts({
         });
       
         // console.log("Sorted Chats:");
-        for (const chat of sortedChats) {
+        for (const _chat of sortedChats) {
           // console.log(`Participants: ${chat.participants.join(', ')}`);
           // console.log(`First Message Sent At: ${convertTimestampToDate(chat.messages[0]?.sent_at)}`);
           // console.log("---");
