@@ -15,6 +15,7 @@ import Following from "@/interfaces/Following";
 import fetchFollowing from "@/lib/fetchers/fetchFollowing";
 
 import FollowerGrowth from "@/components/analysis/FollowerGrowth";
+import InactiveAccounts from "@/components/analysis/InactiveAccounts";
 import TopHeader from "@/components/TopHeader";
 import ProfileCard from "@/components/analysis/ProfileCard";
 import TopEmojis from "@/components/analysis/TopEmojis";
@@ -95,6 +96,10 @@ export default function Analysis() {
 
       <div>
         <FollowerGrowth followers={followers} />
+      </div>
+
+      <div className=" max-w-fit">
+        <InactiveAccounts chats={chats}  />
       </div>
     </div>
   );

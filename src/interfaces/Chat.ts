@@ -2,5 +2,5 @@ import Message from "./Message";
 
 export default interface Chat {
     participants: string[],
-    messages: Message[]
+    messages: { sent_at: number }[];
 }

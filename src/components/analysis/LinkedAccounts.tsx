@@ -9,11 +9,11 @@ export default function LinkedAccounts({
   }) {
     return (
       <Card className="p-4 flex flex-col w-full space-y-4">
-        <p className="font-marker text-primary/80 text-2xl">
+        <p className=" text-primary/80 font-seymour-one text-center  text-3xl">
           Linked Meta Accounts
-        </p>
+        </p><br></br>
   
-        <div className="flex flex-row justify-evenly items-center">
+        <div className="flex flex-row justify-evenly">
           {accounts?.map((account) => {
             const icons = {
               Facebook: "https://www.facebook.com/favicon.ico",

@@ -27,7 +27,7 @@ export default function FollowerGrowth({ followers }: { followers: Follower[] | 
 
   return (
     <Card className='p-4 h-[30vh] w-full flex flex-col gap-2'>
-      <p className="font-marker text-primary/80 text-2xl">
+      <p className="font-seymour-one text-primary/80 text-3xl">
         Follower Growth
       </p>
 
