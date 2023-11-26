@@ -22,7 +22,7 @@ import TopEmojis from "@/components/analysis/TopEmojis";
 import LinkedAccounts from "@/components/analysis/LinkedAccounts";
 import fetchChats from "@/lib/fetchers/fetchChats";
 import Chat from "@/interfaces/Chat";
-import calculateTopKeyword from "@/lib/algos/calculateTopKeyword";
+import extractTopKeywordsFromChats from "@/lib/algos/extractTopKeywordsFromChats";
 
 export default function Analysis() {
   let location = useLocation();
@@ -74,7 +74,7 @@ export default function Analysis() {
     if (!chats) return;
     if (!personalInfo) return;
 
-    const keywords = calculateTopKeyword(chats, personalInfo.name);
+    const keywords = extractTopKeywordsFromChats(chats, personalInfo.name);
 
     console.log("keywords", keywords)
   }, [chats])
