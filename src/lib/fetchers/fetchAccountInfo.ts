@@ -14,8 +14,8 @@ export default async function fetchAccountInfo(
 
   const info = json.profile_account_insights[0].string_map_data;
 
-  const country_code = info["First Country Code"].value;
-  const last_login = info["Last Login"].timestamp;
+  const country_code = (info["First Country Code"] || info["First country code"]).value;
+  const last_login = (info["Last Login"] || info["Last login"]).timestamp;
 
   return {
     country_code,

@@ -7,7 +7,7 @@ export default function InactiveAccounts({
   }: {
     chats: Chat[] | undefined;
   }) {
-    console.log( chats? chats:null,"chatss");
+    // console.log( chats? chats:null,"chatss");
     let sortedChats: Chat[] | undefined;
    
     
@@ -19,14 +19,14 @@ export default function InactiveAccounts({
           return sentAtA.getTime() - sentAtB.getTime();
         });
       
-        console.log("Sorted Chats:");
+        // console.log("Sorted Chats:");
         for (const chat of sortedChats) {
-          console.log(`Participants: ${chat.participants.join(', ')}`);
-          console.log(`First Message Sent At: ${convertTimestampToDate(chat.messages[0]?.sent_at)}`);
-          console.log("---");
+          // console.log(`Participants: ${chat.participants.join(', ')}`);
+          // console.log(`First Message Sent At: ${convertTimestampToDate(chat.messages[0]?.sent_at)}`);
+          // console.log("---");
         }
       } else {
-        console.log("Chats array is empty or undefined.");
+        // console.log("Chats array is empty or undefined.");
       }
       
       // Function to convert timestamp to Date
@@ -49,7 +49,7 @@ export default function InactiveAccounts({
         <p className='text-[20px] font-mono bold text-gray-500'>Showing <span>{totalacc}</span>/<span>{totalacc}</span> Accounts</p>
         <div className=''>
         <ul>
-            {sortedChats?.map((item,index)=>(<li key="index" className='text-xl font-seymour-one my-4' ><span className='py-3 pr-3'>{index+1}</span>{item.participants[0]}</li>))}
+            {sortedChats?.map((item,index)=>(<li key={index} className='text-xl font-seymour-one my-4' ><span className='py-3 pr-3'>{index+1}</span>{item.participants[0]}</li>))}
         </ul>
 
         </div>
