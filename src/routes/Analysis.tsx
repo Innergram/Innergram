@@ -22,7 +22,6 @@ import TopEmojis from "@/components/analysis/TopEmojis";
 import LinkedAccounts from "@/components/analysis/LinkedAccounts";
 import fetchChats from "@/lib/fetchers/fetchChats";
 import Chat from "@/interfaces/Chat";
-import extractTopKeywordsFromChats from "@/lib/algos/extractTopKeywordsFromChats";
 import TopKeywords from "@/components/analysis/TopKeywords";
 
 export default function Analysis() {
