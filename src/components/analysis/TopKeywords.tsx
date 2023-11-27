@@ -13,7 +13,7 @@ export default function TopKeywords({ chats, from }: { chats: Chat[] | undefined
       </div>
 
       <div className="flex flex-col items-center space-y-1">
-          <p className="text-4xl">{joinedWithCommas}</p>
+          <p className=" font-seymour-one text-2xl">{joinedWithCommas}</p>
       </div>
     </Card>
   );

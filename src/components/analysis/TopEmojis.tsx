@@ -18,8 +18,8 @@ export default function TopEmojis({ chats }: { chats: Chat[] | undefined }) {
       <div className="grid grid-cols-5">
         {rankedEmojis.map((emoji, idx) => (
           <div key={idx} className="flex flex-col items-center space-y-1">
-            <p className="text-6xl">{emoji[0]}</p>
-            <p className="text-primary/80 font-mono text-sm">{emoji[1]}</p>
+            <p className="text-6xl p-3">{emoji[0]}</p>
+            <p className="text-primary/80 font-mono text-sm ">{emoji[1]}</p>
           </div>
         ))}
       </div>
