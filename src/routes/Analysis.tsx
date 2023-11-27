@@ -23,6 +23,7 @@ import LinkedAccounts from "@/components/analysis/LinkedAccounts";
 import fetchChats from "@/lib/fetchers/fetchChats";
 import Chat from "@/interfaces/Chat";
 import extractTopKeywordsFromChats from "@/lib/algos/extractTopKeywordsFromChats";
+import TopKeywords from "@/components/analysis/TopKeywords";
 
 export default function Analysis() {
   let location = useLocation();
@@ -65,19 +66,8 @@ export default function Analysis() {
       fetchFollowers(zipFile!).then(setFollowers);
       fetchFollowing(zipFile!).then(setFollowing);
       fetchChats(zipFile!).then(setChats)
-
-      
     });
   }, [zipArrayBuffer]);
-
-  useEffect(() => {
-    if (!chats) return;
-    if (!personalInfo) return;
-
-    const keywords = extractTopKeywordsFromChats(chats, personalInfo.name);
-
-    console.log("keywords", keywords)
-  }, [chats])
 
   return (
     <div className="px-8 py-4 flex flex-col space-y-4">
@@ -96,6 +86,8 @@ export default function Analysis() {
 
         <div className="flex flex-col flex-grow space-y-2">
           <LinkedAccounts accounts={linkedAccounts} />
+
+          <TopKeywords chats={chats} from={personalInfo?.name || ""} />
         </div>
       </div>
 
