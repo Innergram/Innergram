@@ -2,8 +2,10 @@ import { useState } from "react";
 
 import { UploadIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import {Tooltip} from "@nextui-org/react";
 
 import { Button } from "@/components/ui/button";
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -52,34 +54,39 @@ export default function Home() {
           Dive into your Instagram insights effortlessly with our Open Source
           Analytics Tool!
         </p>
+
+        {/* <p  className="w-2/5 text-xl font-mono text-center">In order to use Innergram,Request your personal data from your instagram account from settings and upload the zip file down here! </p> */}
       </div>
 
       <div className="flex flex-col items-center justify-center w-2/6">
         {uploading ? (
           <p className="text-xl font-bold">Uploading..</p>
         ) : (
+          
+          <Tooltip key="danger" color="danger" content="Request your personal data from your instagram account and upload the zip file here!" className="capitalize mt-5 bg-white text-sm font-semibold rounded-xl text-[#E11D48] p-2 text-center align-middle" placement="bottom">
           <label
-            htmlFor="dropzone-file"
-            className="flex flex-col items-center justify-center w-full h-[30vh] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-secondary"
-          >
-            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-              <UploadIcon className="w-12 h-12 text-gray-400" />
-              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className="font-semibold">Click to upload</span> or drag
-                and drop
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                (only JSON format supported)
-              </p>
-            </div>
-            <input
-              id="dropzone-file"
-              type="file"
-              accept=".zip"
-              className="hidden"
-              onChange={handleChange}
-            />
-          </label>
+    htmlFor="dropzone-file"
+    className="flex flex-col items-center justify-center w-full h-[30vh] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-secondary relative">
+    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+        <UploadIcon className="w-12 h-12 text-gray-400" />
+        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+            <span className="font-semibold">Click to upload</span> or drag and drop
+        </p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+            (only JSON format supported)
+        </p>
+    </div>
+    <input
+        id="dropzone-file"
+        type="file"
+        accept=".zip"
+        className="hidden"
+        onChange={handleChange}
+    />
+    {/* Tooltip */}
+    
+</label>
+</Tooltip>
         )}
 
         {error && (
@@ -87,7 +94,7 @@ export default function Home() {
         )}
       </div>
 
-      <div className="flex flex-col w-1/5">
+      <div className=" mt-12 flex flex-col w-1/5">
         <div className="h-5 border-b-4 border-dotted border-primary text-2xl text-center">
           <span className="bg-background px-5">OR</span>
         </div>
