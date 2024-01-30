@@ -7,7 +7,7 @@ export default function TopKeywords({ chats, from }: { chats: Chat[] | undefined
   const joinedWithCommas = topKeywords.join(", ");
   
   return (
-    <Card className="p-4 flex flex-row justify-evenly items-center h-[20vh]">
+    <Card className="p-4 flex flex-row justify-evenly items-center h-[23vh]">
       <div className="flex flex-col items-center justify-center mr-8">
         <p className="text-primary/80 font-seymour-one text-3xl">Your Top Keywords</p>
       </div>

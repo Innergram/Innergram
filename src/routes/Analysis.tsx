@@ -83,7 +83,7 @@ export default function Analysis() {
       <div className="flex flex-row justify-stretch space-x-4 w-full">
         <TopEmojis chats={chats} />
 
-        <div className="flex flex-col flex-grow space-y-2">
+        <div className="flex flex-col flex-grow space-y-5">
           <LinkedAccounts accounts={linkedAccounts} />
 
           <TopKeywords chats={chats} from={personalInfo?.name || ""} />

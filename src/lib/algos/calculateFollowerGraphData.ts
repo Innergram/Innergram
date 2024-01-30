@@ -20,7 +20,8 @@ export default function calculateFollowerGraphData(followers: Follower[] | undef
     const uniqueFollowers = [...new Set(followersInWindow.map((f) => f.username))];
     const growthDifference = idx > 0 ? uniqueFollowers.length - result[idx - 1].y : 0;
 
-    result.push({ x: currentTime.format("ddd MMMM YYYY"), y: uniqueFollowers.length, followersAtPresent: idx + growthDifference });
+    result.push({ x: currentTime.format("MMMM YYYY"), y: uniqueFollowers.length, followersAtPresent: idx + growthDifference });
+    console.log(result,"rizzzzzzz")
   });
 
   return result;

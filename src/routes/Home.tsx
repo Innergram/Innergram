@@ -100,7 +100,7 @@ export default function Home() {
         </div>
 
         <Button asChild className="mt-8">
-          <Link to="/demo">Try a Demo</Link>
+          <Link to="/takedemo">Try a Demo</Link>
         </Button>
       </div>
     </div>

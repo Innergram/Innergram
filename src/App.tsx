@@ -2,6 +2,7 @@ import { createBrowserRouter,RouterProvider,RouteObject,} from "react-router-dom
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Home from "@/routes/Home";
 import Analysis from "@/routes/Analysis";
+import Takedemo from "@/routes/takedemo";
 
 
 const routes: RouteObject[] = [
@@ -12,6 +13,10 @@ const routes: RouteObject[] = [
   {
     path: "/analysis",
     element: <Analysis />
+  },
+  {
+    path: "/takeDemo",
+    element: <Takedemo />
   }
 ];
 
