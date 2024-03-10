@@ -25,14 +25,9 @@ import Chat from "@/interfaces/Chat";
 import TopKeywords from "@/components/analysis/TopKeywords";
 
 export default function Analysis() {
-  let location = useLocation();
+  const location = useLocation();
 
-  if (!location.state) {
-    return <>No zip file provided</>;
-  }
-
-  let { zipArrayBuffer }: { zipArrayBuffer: ArrayBuffer | undefined } =
-    location.state;
+  const { zipArrayBuffer }: { zipArrayBuffer: ArrayBuffer } = location.state;
 
   const [processing, setProcessing] = useState(false);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo | undefined>();
@@ -64,9 +59,13 @@ export default function Analysis() {
       fetchLinkedAccounts(zipFile!).then(setLinkedAccounts);
       fetchFollowers(zipFile!).then(setFollowers);
       fetchFollowing(zipFile!).then(setFollowing);
-      fetchChats(zipFile!).then(setChats)
+      fetchChats(zipFile!).then(setChats);
     });
   }, [zipArrayBuffer]);
+
+  if (!location.state) {
+    return <>No zip file provided</>;
+  }
 
   return (
     <div className="px-8 py-4 flex flex-col space-y-4">
@@ -95,7 +94,7 @@ export default function Analysis() {
       </div>
 
       <div className=" max-w-fit">
-        <InactiveAccounts chats={chats}  />
+        <InactiveAccounts chats={chats} />
       </div>
     </div>
   );
