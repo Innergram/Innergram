@@ -93,7 +93,7 @@ export default function Analysis() {
         <FollowerGrowth followers={followers} />
       </div>
 
-      <div className=" max-w-fit">
+      <div className="max-w-fit">
         <InactiveAccounts chats={chats} />
       </div>
     </div>
