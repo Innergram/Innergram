@@ -21,7 +21,7 @@
 1. Clone the repository:
 
  ```bash
- git clone https://github.com/your-username/Innergram.git
+ git clone https://github.com/Innergram/Innergram.git
  cd Innergram
  ```
    
